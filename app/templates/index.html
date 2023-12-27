@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Features Input</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="d-flex justify-content-center align-items-center m-5">
+        <form id="weatherForm" method="POST" action="{{ url_for('predict') }}">
+        
+            <div class="mb-3">
+                <div id="warningContainer" class="alert alert-warning" style="display: none;">
+                    Note: If you input a decimal value, it is recommended to use the ceiling value (e.g., 3.14 -> 4).
+                </div>
+            </div>
+            <div class="row">
+                <!-- First Row -->
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="hour" class="form-label">Hour</label>
+                        <input type="number" max="24" min="0" class="form-control" id="hour" name="hour"
+                            placeholder="Enter hour">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label class="form-label">Holiday</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="holiday" id="holidayTrue" value="true">
+                            <label class="form-check-label" for="holidayTrue">True</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="holiday" id="holidayFalse" value="false">
+                            <label class="form-check-label" for="holidayFalse">False</label>
+                        </div>
+                        <!-- <div id="holidayHelp" class="form-text">Select True or False for Holiday</div> -->
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="temperature" class="form-label">Temperature(°C)</label>
+                        <input type="number" class="form-control" id="temperature" name="temperature"
+                            placeholder="Enter temperature">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="humidity" class="form-label">Humidity(%)</label>
+                        <input type="number" class="form-control" id="humidity" name="humidity" placeholder="Enter humidity">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="windSpeed" class="form-label">Wind speed (m/s)</label>
+                        <input type="number" class="form-control" id="windSpeed" name="wind_speed"
+                            placeholder="Enter wind speed">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5"></div>
+
+            <div class="row">
+                <!-- Second Row -->
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="visibility" class="form-label">Visibility (10m)</label>
+                        <input type="number" class="form-control" id="visibility" name="visibility"
+                            placeholder="Enter visibility">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="dewPoint" class="form-label">Dew point temperature(°C)</label>
+                        <input type="number" class="form-control" id="dewPoint" name="dew_point_temperature"
+                            placeholder="Enter dew point temperature">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="solarRadiation" class="form-label">Solar Radiation (MJ/m2)</label>
+                        <input type="number" class="form-control" id="solarRadiation" name="solar_radiation"
+                            placeholder="Enter solar radiation">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="rainfall" class="form-label">Rainfall(mm)</label>
+                        <input type="number" class="form-control" id="rainfall" name="rainfall" placeholder="Enter rainfall">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="snowfall" class="form-label">Snowfall (cm)</label>
+                        <input type="number" class="form-control" id="snowfall" name="snowfall" placeholder="Enter snowfall">
+                    </div>
+                </div>
+            </div>
+        
+            <button type="submit" class="btn btn-primary mt-3">Predict</button>
+        
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+        <script>
+            var inputs = document.querySelectorAll('input[type="number"]');
+            var warningContainer = document.getElementById('warningContainer');
+
+            inputs.forEach(function (input) {
+                input.addEventListener('input', function () {
+                    var inputValue = parseFloat(this.value);
+                    var isFloat = !Number.isInteger(inputValue);
+
+                    if (isFloat) {
+                        warningContainer.style.display = 'block';
+                    } else {
+                        warningContainer.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+
+</body>
+
+</html>
